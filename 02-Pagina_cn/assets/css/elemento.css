@@ -1,41 +1,90 @@
-.elemento{display: flex;
-    background-color: #f4f6f1;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+.elemento{
+    display: flex;
+    background-color: #f8f9fa;
+    padding: 4rem 2rem;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
+
 .elemento__titulo{
-    color: rgb(49, 49, 49);
-    font-family: 'Montserrat',sans-serif;
-    font-size: 2rem;
-    font-weight: 600;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
 }
+
+.elemento__titulo::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    background-color: #ff1744;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
 .elemento__figura{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
+
+.elemento__figura:hover {
+    transform: translateY(-10px);
+}
+
 .elemento__figura--imagen{
     width: 50vw;
     max-width: 600px;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    transition: transform 0.5s ease;
+    object-fit: cover;
+}
 
+.elemento__figura:hover .elemento__figura--imagen {
+    transform: scale(1.05);
 }
+
 .elemento__figura--texto{
-    font-family: 'Montserrat',sans-serif;
-    font-weight: 500;
-    font-size: 2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    padding: 1.5rem;
+    width: 100%;
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+    text-align: center;
 }
+
 .elemento__boton{
-    font-family: 'Montserrat',sans-serif;
-    color: #e21919;
-    border-color: 3px solid #e21919;
-    margin: 0 auto;
-    justify-content: space-around;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    background-color: #e21919;
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(226, 25, 25, 0.3);
+    margin-top: 1rem;
+}
+
+.elemento__boton:hover {
+    background-color: #c21616;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(226, 25, 25, 0.4);
 }
