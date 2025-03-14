@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uso de appchild</title>
+</head>
+<body>
+    <div id="contenedor"> contenedor div existento</div>
+    <button id="boton"> agregar elemento</button>
+    <script>
+        const nuevoElemento = document.createElement('div');
+        nuevoElemento.textContent = 'Nuevo elemento';
+        const contenedor = document.getElementById('contenedor');
+        contenedor.appendChild(nuevoElemento);
+        const boton = document.getElementById('boton');
+        boton.addEventListener('click', () => {
+            const nuevoElemento = document.createElement('div');
+            nuevoElemento.textContent = 'Nuevo elemento';
+            contenedor.appendChild(nuevoElemento);
+        });
+        
+
+    </script>
+</body>
+</html>
