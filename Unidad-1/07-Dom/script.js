@@ -1,59 +1,42 @@
+import checkComplete from "./components/checkComplete.js";
+import deleteIcon from "./components/deleteIcon.js";
+
 const btn = document.querySelector('[data-form-btn]');
 
 console.log(btn);
 
-//funcion para crear una recuperar texto de un input
-const createTask = (evento) => {
+// Funcion para recuperar un texto de mi input
+const createTask = (evento) =>{
+    // la nueva tarea la borra
     evento.preventDefault();
+    // selecciona 
     const input = document.querySelector('[data-form-input]');
-    const valor = input.value;
-    const lista = document.querySelector('[data-list]');
-    
-    // Solo crear tarea si hay texto
-    if(valor.trim() === '') return;
-    
+    console.log(input.value);
+
+    // recuperar el querySelector de la Lista
+    const value = input.value;
+    // seleccionamos las data-list para que adentro añadamos algo
+    const list = document.querySelector('[data-list]');
+    // Vamos a añadir etiqeutas li
     const task = document.createElement('li');
+    // dentro una card
     task.classList.add('card');
-    
-    // Crear estructura de la tarea
-    const conTask = document.createElement('div');
-    const taskText = document.createElement('span');
-    taskText.classList.add('task');
-    taskText.innerText = valor;
-    
-    // Añadir checkbox
-    const checkButton = checkComplete();
-    conTask.appendChild(checkButton);
-    conTask.appendChild(taskText);
-    
-    // Añadir ícono de eliminar
-    const deleteIcon = document.createElement('i');
-    deleteIcon.classList.add('fas', 'fa-trash-alt', 'trashIcon', 'icon');
-    
-    // Estructurar y añadir tarea a la lista
-    task.appendChild(conTask);
-    task.appendChild(deleteIcon);
-    lista.appendChild(task);
-    
-    // Limpiar el input
     input.value = '';
+    // creando una variable para que creemos el elemento div
+    const contenidoTask = document.createElement('div');
+    contenidoTask.appendChild(checkComplete());
+    const tituloTask = document.createElement('span');
+    // aumentamos en la lista este task == div
+    tituloTask.classList.add('task');
+    // aumentamos en el texto el valor
+    tituloTask.innerText = value;
+    contenidoTask.appendChild(tituloTask);
+
+    // task.innerHTML = contenido;
+    task.appendChild(contenidoTask);
+    task.appendChild(deleteIcon());
+    list.appendChild(task);
 };
 
+// Cuando yo haga click va a llamar a la funcion que yo he generado
 btn.addEventListener('click', createTask);
-
-const checkComplete=()=>{
-    const i =document.createElement('i')// creacion de un icono 
-    i.classList.add("far","fa-check-square","icon")//dando estilos al icono
-    i.addEventListener("click",color)
-    return i;
-}
-
-const color =(evento)=>{
-    const element= evento.target
-    element.classList.add('fas');
-    element.classList.add('completeIcon');
-    element.classList.remove('far');
-};
-
-
-
