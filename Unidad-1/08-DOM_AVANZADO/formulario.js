@@ -14,6 +14,6 @@ const datosForm=()=>{
         date: date.value.trim(),
         priority: inputPrioridad.value.trim(),
     }
-}
+};
 
 })
