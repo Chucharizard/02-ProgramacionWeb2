@@ -30,13 +30,26 @@ const tabla = (() => {
         deleteButton.addEventListener('click',()=>{
             cuerpoTabla.deleteRow(nuevaFila.rowIndex);
 
-
         });
 
         accions.appendChild(deleteButton); //agrego el boton al div
-
         accionCell.appendChild(accions); //agrego el div a la celda
 
     };
+//recupero los datos de la tabla
+const getTasks = () => {
+    return Array.from(cuerpoTabla.rows).map(row=>( {
+        task: row.cells[0].textContent,
+        description: row.cells[1].textContent,
+        date: row.cells[2].textContent,
+        priority: row.cells[3].textContent,
+        completed: row.classList.contains('completed')
 
-    })
+    }));
+};
+
+return {addTask, getTasks};
+
+})
+
+export default tabla; //exporto la funcion tabla
