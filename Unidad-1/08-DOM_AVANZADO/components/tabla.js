@@ -1,3 +1,4 @@
+import cards from "./cards.js";
 const tabla = (() => {
     const cuerpoTabla = document.getElementById('taskTable').getElementsByTagName('tbody')[0]; //recupero el cuerpo de la tabla
     //recupero el cuerpo de la tabla    
@@ -20,6 +21,7 @@ const tabla = (() => {
         completeButton.addEventListener('click',()=>{
             nuevaFila.classList.toggle('completed');
 
+            cards.update();
         });
 
         accions.appendChild(completeButton); //agrego el boton al div
@@ -29,6 +31,8 @@ const tabla = (() => {
         deleteButton.className = 'delete';
         deleteButton.addEventListener('click',()=>{
             cuerpoTabla.deleteRow(nuevaFila.rowIndex);
+
+            cards.update();
 
         });
 
@@ -45,6 +49,7 @@ const getTasks = () => {
         priority: row.cells[3].textContent,
         completed: row.classList.contains('completed')
 
+        
     }));
 };
 
