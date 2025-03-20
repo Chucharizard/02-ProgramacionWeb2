@@ -30,7 +30,7 @@ const tabla = (() => {
         deleteButton.textContent = 'eliminar';
         deleteButton.className = 'delete';
         deleteButton.addEventListener('click',()=>{
-            cuerpoTabla.deleteRow(nuevaFila.rowIndex);
+            cuerpoTabla.deleteRow(nuevaFila.rowIndex-1);
 
             cards.update();
 
@@ -55,6 +55,6 @@ const getTasks = () => {
 
 return {addTask, getTasks};
 
-})
+})();
 
 export default tabla; //exporto la funcion tabla

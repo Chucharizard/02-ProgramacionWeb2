@@ -4,8 +4,8 @@ const Form = (() => {
 const form = document.querySelector('[data-form]'); //recupero el formulario
 const inputTask = document.querySelector('[data-input-task]');
 const inputDescription = document.querySelector('[data-input-descripcion]');  
-const date = document.querySelector(['data-input-fecha']) 
-const inputPrioridad= document.querySelector(['data-input-prioridad']) 
+const date = document.querySelector('[data-input-fecha]'); // Corregido: Quitar corchetes alrededor del selector
+const inputPrioridad = document.querySelector('[data-input-prioridad]'); // Corregido: Quitar corchetes alrededor del selector
 
 //guardo los datos como objeto
 const datosForm=()=>{ 
@@ -21,7 +21,7 @@ const reset =()=>{
     inputTask.value=''; //value es el valor del input
     inputDescription.value=''; 
     date.value=''; 
-    inputPrioridad=''; 
+    inputPrioridad.value=''; 
 };
 // devuelvo los datos del formulario
 const setDatos =(callback)=>{ //callback es una funcion que se ejecuta dentro de otra funcion
