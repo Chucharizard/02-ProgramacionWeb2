@@ -6,7 +6,7 @@ const editIcon = () => {
 };
 
 const editarTarea = (evento) => {
-    // Navegamos correctamente en el DOM para encontrar el elemento con la clase 'task'
+    // Navegamos en el DOM para encontrar el elemento con la clase 'task'
     const taskElement = evento.target.closest('.card').querySelector('.task');
     const originalText = taskElement.textContent;
     
@@ -29,13 +29,13 @@ const editarTarea = (evento) => {
                 // Reemplazamos el input con el nuevo texto
                 taskElement.textContent = newText;
             } else {
-                // Si está vacío, restauramos el texto original
+                // Si esta vacio restauramos el texto original
                 taskElement.textContent = originalText;
             }
         }
     });
     
-    // Guardar al perder el foco
+    // Guardar al salir del input
     inputEdit.addEventListener('blur', () => {
         const newText = inputEdit.value.trim();
         if (newText) {

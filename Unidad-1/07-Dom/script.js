@@ -5,9 +5,9 @@ import duplicateIcon from "./components/duplicateIcon.js";
 
 const btn = document.querySelector('[data-form-btn]');
 
-// Función para añadir una tarea al DOM (exportada para usarla en duplicateIcon.js)
+// Función para añadir una tarea al DOM 
 export const addTaskToDOM = (value) => {
-    if (!value.trim()) return; // No añadir tareas vacías
+    if (!value.trim()) return; // No añadir tareas vacias
     
     const list = document.querySelector('[data-list]');
     const task = document.createElement('li');
