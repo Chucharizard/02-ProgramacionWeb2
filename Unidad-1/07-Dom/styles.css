@@ -125,3 +125,50 @@ form {
 .noTasks {
   font-size: 48px;
 }
+
+/* Estilos para los nuevos componentes */
+.taskContent {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.taskMainContent {
+  display: flex;
+  align-items: center;
+}
+
+.taskActions {
+  display: flex;
+  gap: 10px;
+}
+
+.editIcon:hover {
+  color: #ffbb00;
+}
+
+.duplicateIcon:hover {
+  color: #00bb00;
+}
+
+.editInput {
+  border: none;
+  border-bottom: 1px solid #5d34ec;
+  outline: none;
+  padding: 5px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 16px;
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mainCard {
+    width: 80vw;
+  }
+  
+  .taskActions {
+    gap: 5px;
+  }
+}

@@ -6,7 +6,8 @@ const deleteIcon = () => {
 }
 
 const eliminarTarea = (evento) => {
-    const parent = evento.target.parentElement;
+    // Obtenemos el elemento card completo para eliminarlo
+    const parent = evento.target.closest('.card');
     parent.remove();
 }
 
