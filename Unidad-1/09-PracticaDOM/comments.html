@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio personal</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/comments.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="header__menu">
+            <a class="header_menu_link" href="index.html">Home</a>
+            <a class="header_menu_link" href="about.html">Sobre mí</a>
+            <a class="header_menu_link" href="comments.html" target="_blank">Comentarios</a>
+            <a class="header_menu_link" href="https://chucharizard.github.io/contac/" target="_blank">Contacto</a>
+        </nav>
+    </header>
+    <main class="presentacion">
+        <section class="presentacion__contenido">
+            <h1 class="presentacion_contenido_titulo">
+                ¡Deja tu comentario! <strong class="titulo-destaque">Tu opinión me ayuda a mejorar</strong>
+            </h1>
+            <p class="presentacion_contenido_texto">
+                ¿Que opinas de mi chamba? Puedes dejar un comentario para saber como puedo mejorar o si hay algo que te gusto especialmente.
+            </p>
+            
+            <!-- Sección de comentarios -->
+            <div class="comments-section">
+                <div class="comment-form-container">
+                    <h2>Añadir un comentario</h2>
+                    <form class="comment-form" data-comment-form>
+                        <div class="form-group">
+                            <label for="comment-name">Nombre:</label>
+                            <input 
+                                type="text" 
+                                id="comment-name" 
+                                placeholder="Tu nombre" 
+                                class="comment-input" 
+                                data-comment-name
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="comment-text">Comentario:</label>
+                            <textarea 
+                                id="comment-text" 
+                                placeholder="Escribe tu comentario aquí" 
+                                class="comment-input comment-textarea"
+                                data-comment-text
+                                required
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="comment-btn" data-comment-btn>
+                            Publicar comentario <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="comments-container">
+                    <h2>Comentarios</h2>
+                    <ul class="comments-list" data-comments-list>
+                        <!-- Aquí se cargarán los comentarios dinámicamente -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <img class="presentacion__imagen" src="assets/icon.ico"Foto">
+    </main>
+    <footer class="footer">
+        <p>Desarrollado por Jesus Aranciba</p>
+    </footer>
+
+    <script type="module" src="components/comments.js"></script>
+</body>
+</html>
