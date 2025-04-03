@@ -1,0 +1,116 @@
+
+body {
+    font-family: monospace ,Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+/* Estilos para el container */
+#container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+#container h2{
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#container input{
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80%;
+    font-size: 16px;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+}
+#container input:focus {
+    border-color: #c100de;
+    box-shadow: 0 0 5px rgba(193, 0, 222, 0.5), 0 0 10px rgba(193, 0, 222, 0.3);
+    outline: none;
+    -webkit-box-shadow: 0 0 5px rgba(193, 0, 222, 0.5), 0 0 10px rgba(193, 0, 222, 0.3);
+    -moz-box-shadow: 0 0 5px rgba(193, 0, 222, 0.5), 0 0 10px rgba(193, 0, 222, 0.3);
+    -ms-box-shadow: 0 0 5px rgba(193, 0, 222, 0.5), 0 0 10px rgba(193, 0, 222, 0.3);
+    -o-box-shadow: 0 0 5px rgba(193, 0, 222, 0.5), 0 0 10px rgba(193, 0, 222, 0.3);
+}
+#container button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #c100de;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+#container li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    -ms-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    -o-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+/* Estilos para los botones de controls */
+#controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#controls button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #c100de;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    border: 1px solid transparent;
+}
+
+#controls button:hover {
+    background-color: #f4f4f4 !important;
+    color: #333 !important;
+    border: 1px solid #333 !important;
+    box-shadow: 0 0 10px 5px rgba(224, 0, 160, 0.5), 0 0 20px 10px rgba(255, 0, 183, 0.3);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -o-transform: scale(1.02);
+}
