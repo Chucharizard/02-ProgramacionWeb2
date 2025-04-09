@@ -1,0 +1,29 @@
+{
+  "posts": [
+    {
+      "id": "1744084926865",
+      "titulo": "Nuevo Post Creado",
+      "descripcion": "Este es un nuevo post creado con POST",
+      "fecha": "2025-04-08"
+    },
+    {
+      "id": "1744084935991",
+      "titulo": "Nuevo Post Creado",
+      "descripcion": "Este es un nuevo post creado con POST",
+      "fecha": "2025-04-08"
+    },
+    {
+      "id": "1744086118684",
+      "titulo": "Nuevo Post Creado",
+      "descripcion": "Este es un nuevo post creado con POST",
+      "fecha": "2025-04-08"
+    },
+    {
+      "id": "1744086118974",
+      "titulo": "Nuevo Post Creado",
+      "descripcion": "Este es un nuevo post creado con POST",
+      "fecha": "2025-04-08"
+    }
+  ],
+  "tareas": []
+}
