@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluación DOM</title>
+
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/galeria.css">
+    <style>
+        .task { padding: 10px; margin: 5px; border: 1px solid #ccc; }
+        .relleno { background-color: yellow !important; }
+        .tachado { text-decoration: line-through; color: #999; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>EL panadero</h1>
+
+        <h2>Lista de Tareas</h2>
+        <input data-type="input" type="text" id="newItem" placeholder="Nueva tarea">
+        <button id="addBtn">Agregar</button>
+        <ul id="taskList">
+            <li class="item">Tarea de ejemplo 1</li>
+            <li class="item">Tarea de ejemplo 2</li>
+        </ul>
+        
+        <div id="controls">
+            <button id="toggleBtn">Tachar Último</button>
+            <button id="countBtn">Contar Items</button>
+        </div>
+        <div id="output"></div>
+    </div>
+    
+    <div id="galeria">
+        <h2>Galería de Imágenes</h2>
+        <div id="imageContainer">
+            <img src="assets/gato1.jpg" alt="Imagen 1" class="image">
+            <img src="assets/gato2.jpg" alt="Imagen 2" class="image">
+            <img src="assets/gato3.jpg" alt="Imagen 3" class="image">
+            <img src="assets/gato4.jpg" alt="Imagen 4" class="image">
+            <img src="assets/gato5.jpg" alt="Imagen 5" class="image">
+            <img src="assets/gato6.jpg" alt="Imagen 6" class="image">
+            <img src="assets/gato7.jpg" alt="Imagen 7" class="image">
+        </div>
+    </div>
+    
+    <script src="components/js/relleno.js"></script>
+    <script src="components/js/script.js"></script>
+    <script src="components/js/tachar.js"></script>
+    <script src="components/js/contar.js"></script>
+    <script src="components/js/galeria.js"></script>
+    <script src="components/js/eliminar.js"></script>
+</body> 
+</html>
