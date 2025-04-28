@@ -65,6 +65,8 @@ lista_clientes()
 
 */
 
+
+/*
 //---------optimizado---------
 const listaclientes=()=> fetch("http://localhost:3000/perfil").then((respuesta)=>respuesta.json());
 const crearCliente=(nombre,email)=>{
@@ -104,6 +106,95 @@ const actualizarCliente=(nombre,email,id)=>{ // ojoooo solo actualizo nombre y e
 
 export const clientService={
     listaclientes,
+    crearCliente,
+    eliminarCliente,
+    clientes,
+    actualizarCliente
+};
+*/
+
+const API_BASE_URL = "http://localhost/api1/conexion.php";
+const lista_clientes = () => {
+    return fetch(API_BASE_URL)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Error en la respuesta de la API");
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error al obtener los datos:", error);
+            throw error;
+        });
+}
+const crearCliente = (nombre, email) => {
+    return fetch(API_BASE_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nombre, email })
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Error al crear el cliente");
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error al crear el cliente:", error);
+            throw error;
+        });
+}
+const eliminarCliente = (id) => {
+    return fetch(`${API_BASE_URL}/${id}`, {
+        method: "DELETE"
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Error al eliminar el cliente");
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error al eliminar el cliente:", error);
+            throw error;
+        });
+}
+const clientes = (id) => {
+    return fetch(`${API_BASE_URL}/${id}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Error al obtener el cliente");
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error al obtener el cliente:", error);
+            throw error;
+        });
+}
+const actualizarCliente = (nombre, email, id) => {
+    return fetch(`${API_BASE_URL}/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nombre, email })
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Error al actualizar el cliente");
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error al actualizar el cliente:", error);
+            throw error;
+        });
+}
+export const clientService = {
+    lista_clientes,
     crearCliente,
     eliminarCliente,
     clientes,
