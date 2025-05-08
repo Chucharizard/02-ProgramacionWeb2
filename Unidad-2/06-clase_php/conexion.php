@@ -3,101 +3,126 @@
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     header("Content-Type: application/json; charset=UTF-8");
-    
-    
+
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         http_response_code(200);
         exit();
     }
-    
+
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "doguitodb";
-    
-    //codigo de conexion a la base de datos
+
+    // Conexión a la base de datos
     $conn = new mysqli($servername, $username, $password, $dbname);
-    
-    // verificar conexion
+
+    // Verificar conexion
     if ($conn->connect_error) {
         http_response_code(500);
         die(json_encode(["error" => "conexion fallida: " . $conn->connect_error]));
-    } 
-    
+    }
+
     $method = $_SERVER['REQUEST_METHOD'];
-    switch($method){
+
+    switch ($method) {
         case 'GET':
             $id = $_GET['id'] ?? null;
-            if ($id){
-                $stmt = $conn -> prepare("SELECT * FROM perfil WHERE id = ?");
-                $stmt -> bind_param("s", $id); //vinculo los parametros tomando en cuenta que es un string 
-                $stmt -> execute();
-                $result = $stmt -> get_result();
-                //convierto a array
-                $cliente = $result -> fetch_assoc();
-                echo json_encode($cliente); 
-            }
-            else{
-                $result = $conn -> query("SELECT * FROM perfil");
-                $clientes = [];
-                while($row = $result -> fetch_assoc()){
-                    $clientes[] = $row;
+            if ($id) {
+                $stmt = $conn->prepare("SELECT * FROM productos WHERE id = ?");
+                $stmt->bind_param("s", $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $producto = $result->fetch_assoc();
+                if ($producto) {
+                    echo json_encode($producto);
+                } else {
+                    http_response_code(404);
+                    echo json_encode(["error" => "Producto no encontrado"]);
                 }
-                echo json_encode($clientes);
+                $stmt->close();
+            } else {
+                $result = $conn->query("SELECT * FROM productos");
+                $productos = [];
+                while ($row = $result->fetch_assoc()) {
+                    $productos[] = $row;
+                }
+                echo json_encode($productos);
             }
             break;
 
         case 'POST':
             $input = json_decode(file_get_contents("php://input"), true);
-            $id = $input['id'] ?? uniqid();//verifico q el id sea unico
-            $nombre = $input['nombre'];
-            $email = $input['email'];
-            $stmt = $conn -> prepare("INSERT INTO perfil (id, nombre, email) VALUES (?, ?, ?)");
-            $stmt -> bind_param("sss", $id, $nombre, $email); 
-            if($stmt -> execute()){
+            $id = $input['id'] ?? uniqid(); // Genera un ID único si no se proporciona
+            $nombre = $input['nombre'] ?? '';
+            $precio = $input['precio'] ?? null;
+            $descripcion = $input['descripcion'] ?? '';
+
+            if (empty($nombre) || !is_numeric($precio)) {
+                http_response_code(400);
+                echo json_encode(["error" => "Faltan datos requeridos o el precio no es válido (nombre y precio son obligatorios)"]);
+                exit();
+            }
+
+            $stmt = $conn->prepare("INSERT INTO productos (id, nombre, precio, descripcion) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssds", $id, $nombre, $precio, $descripcion);
+
+            if ($stmt->execute()) {
                 http_response_code(201);
-                echo json_encode(["message" => "Cliente creado", "id" => $id]);
-            }
-            else{
+                echo json_encode(["message" => "Producto creado", "id" => $id, "nombre" => $nombre, "precio" => $precio, "descripcion" => $descripcion]);
+            } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al crear el cliente"]);
+                echo json_encode(["error" => "Error al crear el producto: " . $stmt->error]);
             }
+            $stmt->close();
             break;
 
         case 'PUT':
             $input = json_decode(file_get_contents("php://input"), true);
-            $id = $input['id'];
-            $nombre = $input['nombre'];
-            $email = $input['email'];
-            $stmt = $conn -> prepare("UPDATE perfil SET nombre = ?, email = ? WHERE id = ?");
-            $stmt -> bind_param("sss", $nombre, $email, $id); //id al ultimo
-            if($stmt -> execute()){
+            $id = $input['id'] ?? '';
+            $nombre = $input['nombre'] ?? '';
+            $precio = $input['precio'] ?? 0.00;
+            $descripcion = $input['descripcion'] ?? '';
+            if (empty($id) || empty($nombre) || $precio === null) {
+                http_response_code(400);
+                echo json_encode(["error" => "Faltan datos requeridos (id, nombre y precio son obligatorios)"]);
+                exit();
+            }
+            $stmt = $conn->prepare("UPDATE productos SET nombre = ?, precio = ?, descripcion = ? WHERE id = ?");
+            $stmt->bind_param("sdss", $nombre, $precio, $descripcion, $id);
+            if ($stmt->execute()) {
                 http_response_code(200);
-                echo json_encode(["message" => "Cliente actualizado"]);
-            }
-            else{
+                echo json_encode(["message" => "Producto actualizado", "id" => $id, "nombre" => $nombre, "precio" => $precio, "descripcion" => $descripcion]);
+            } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al actualizar el cliente"]);
+                echo json_encode(["error" => "Error al actualizar el producto"]);
             }
+            $stmt->close();
             break;
-        
+
         case 'DELETE':
-            $id = $_GET['id']; //para eliminar si o si tengo q obtener el identificador
-            $stmt = $conn -> prepare("DELETE FROM perfil WHERE id = ?");
-            $stmt -> bind_param("s", $id);
-            if($stmt -> execute()){
+            $id = $_GET['id'] ?? '';
+            if (empty($id)) {
+                http_response_code(400);
+                echo json_encode(["error" => "ID requerido"]);
+                exit();
+            }
+            $stmt = $conn->prepare("DELETE FROM productos WHERE id = ?");
+            $stmt->bind_param("s", $id);
+            if ($stmt->execute()) {
                 http_response_code(200);
-                echo json_encode(["message" => "Cliente eliminado"]);
-            }
-            else{
+                echo json_encode(["message" => "Producto eliminado"]);
+            } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al eliminar el cliente"]);
+                echo json_encode(["error" => "Error al eliminar el producto"]);
             }
+            $stmt->close();
             break;
-        
-            default:
-                http_response_code(405); 
-                echo json_encode(["error" => "Método no permitido"]);            
+
+        default:
+            http_response_code(405);
+            echo json_encode(["error" => "Método no permitido"]);
     }
-    $conn -> close(); //cierro la conexion
+
+    $conn->close();
 ?>
