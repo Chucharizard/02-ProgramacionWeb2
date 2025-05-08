@@ -21,13 +21,13 @@
     // verificar conexion
     if ($conn->connect_error) {
         http_response_code(500);
-        die(json_encode["conexion fallida: " . $conn->connect_error]);
+        die(json_encode(["error" => "conexion fallida: " . $conn->connect_error]));
     } 
     
     $method = $_SERVER['REQUEST_METHOD'];
     switch($method){
         case 'GET':
-            $id = $_GET['id' ?? null];
+            $id = $_GET['id'] ?? null;
             if ($id){
                 $stmt = $conn -> prepare("SELECT * FROM perfil WHERE id = ?");
                 $stmt -> bind_param("s", $id); //vinculo los parametros tomando en cuenta que es un string 
@@ -97,7 +97,7 @@
         
             default:
                 http_response_code(405); 
-                echo json_encode(["error" => "TONTITO"]);            
+                echo json_encode(["error" => "Método no permitido"]);            
     }
     $conn -> close(); //cierro la conexion
 ?>
