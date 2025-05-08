@@ -17,7 +17,7 @@
     // Conexión a la base de datos
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Verificar conexión
+    // Verificar conexion
     if ($conn->connect_error) {
         http_response_code(500);
         die(json_encode(["error" => "conexion fallida: " . $conn->connect_error]));
@@ -29,49 +29,50 @@
         case 'GET':
             $id = $_GET['id'] ?? null;
             if ($id) {
-                $stmt = $conn->prepare("SELECT * FROM perfil WHERE id = ?");
+                $stmt = $conn->prepare("SELECT * FROM productos WHERE id = ?");
                 $stmt->bind_param("s", $id);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                $cliente = $result->fetch_assoc();
-                if ($cliente) {
-                    echo json_encode($cliente);
+                $producto = $result->fetch_assoc();
+                if ($producto) {
+                    echo json_encode($producto);
                 } else {
                     http_response_code(404);
-                    echo json_encode(["error" => "Cliente no encontrado"]);
+                    echo json_encode(["error" => "Producto no encontrado"]);
                 }
                 $stmt->close();
             } else {
-                $result = $conn->query("SELECT * FROM perfil");
-                $clientes = [];
+                $result = $conn->query("SELECT * FROM productos");
+                $productos = [];
                 while ($row = $result->fetch_assoc()) {
-                    $clientes[] = $row;
+                    $productos[] = $row;
                 }
-                echo json_encode($clientes);
+                echo json_encode($productos);
             }
             break;
 
         case 'POST':
             $input = json_decode(file_get_contents("php://input"), true);
-            $id = $input['id'] ?? uniqid(); // Genera un ID único si no se proporciona
+            $id = $input['id'] ?? uniqid(); 
             $nombre = $input['nombre'] ?? '';
-            $email = $input['email'] ?? '';
+            $precio = $input['precio'] ?? null;
+            $descripcion = $input['descripcion'] ?? '';
 
-            if (empty($nombre) || empty($email)) {
+            if (empty($nombre) || !is_numeric($precio)) {
                 http_response_code(400);
-                echo json_encode(["error" => "Faltan datos requeridos (nombre y email son obligatorios)"]);
+                echo json_encode(["error" => "Faltan datos requeridos o el precio no es válido (nombre y precio son obligatorios)"]);
                 exit();
             }
 
-            $stmt = $conn->prepare("INSERT INTO perfil (id, nombre, email) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $id, $nombre, $email);
+            $stmt = $conn->prepare("INSERT INTO productos (id, nombre, precio, descripcion) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssds", $id, $nombre, $precio, $descripcion);
 
             if ($stmt->execute()) {
                 http_response_code(201);
-                echo json_encode(["message" => "Cliente creado", "id" => $id, "nombre" => $nombre, "email" => $email]);
+                echo json_encode(["message" => "Producto creado", "id" => $id, "nombre" => $nombre, "precio" => $precio, "descripcion" => $descripcion]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al crear el cliente: " . $stmt->error]);
+                echo json_encode(["error" => "Error al crear el producto: " . $stmt->error]);
             }
             $stmt->close();
             break;
@@ -80,45 +81,40 @@
             $input = json_decode(file_get_contents("php://input"), true);
             $id = $input['id'] ?? '';
             $nombre = $input['nombre'] ?? '';
-            $email = $input['email'] ?? '';
-            
-            if (empty($id) || empty($nombre) || empty($email)) {
+            $precio = $input['precio'] ?? 0.00;
+            $descripcion = $input['descripcion'] ?? '';
+            if (empty($id) || empty($nombre) || $precio === null) {
                 http_response_code(400);
-                echo json_encode(["error" => "Faltan datos requeridos (id, nombre y email son obligatorios)"]);
+                echo json_encode(["error" => "Faltan datos requeridos (id, nombre y precio son obligatorios)"]);
                 exit();
             }
-            
-            $stmt = $conn->prepare("UPDATE perfil SET nombre = ?, email = ? WHERE id = ?");
-            $stmt->bind_param("sss", $nombre, $email, $id);
-            
+            $stmt = $conn->prepare("UPDATE productos SET nombre = ?, precio = ?, descripcion = ? WHERE id = ?");
+            $stmt->bind_param("sdss", $nombre, $precio, $descripcion, $id);
             if ($stmt->execute()) {
                 http_response_code(200);
-                echo json_encode(["message" => "Cliente actualizado", "id" => $id, "nombre" => $nombre, "email" => $email]);
+                echo json_encode(["message" => "Producto actualizado", "id" => $id, "nombre" => $nombre, "precio" => $precio, "descripcion" => $descripcion]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al actualizar el cliente"]);
+                echo json_encode(["error" => "Error al actualizar el producto"]);
             }
             $stmt->close();
             break;
 
         case 'DELETE':
             $id = $_GET['id'] ?? '';
-            
             if (empty($id)) {
                 http_response_code(400);
                 echo json_encode(["error" => "ID requerido"]);
                 exit();
             }
-            
-            $stmt = $conn->prepare("DELETE FROM perfil WHERE id = ?");
+            $stmt = $conn->prepare("DELETE FROM productos WHERE id = ?");
             $stmt->bind_param("s", $id);
-            
             if ($stmt->execute()) {
                 http_response_code(200);
-                echo json_encode(["message" => "Cliente eliminado"]);
+                echo json_encode(["message" => "Producto eliminado"]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al eliminar el cliente"]);
+                echo json_encode(["error" => "Error al eliminar el producto"]);
             }
             $stmt->close();
             break;
