@@ -54,6 +54,20 @@ if ($conn->query($sql) === TRUE) {
     echo "<p>Error al crear la tabla productos: " . $conn->error . "</p>";
 }
 
+// Crear la tabla pets si no existe
+$sql = "CREATE TABLE IF NOT EXISTS pets (
+    id VARCHAR(36) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    edad VARCHAR(20),
+    descripcion TEXT
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "<p>Tabla 'pets' creada o ya existente</p>";
+} else {
+    echo "<p>Error al crear la tabla pets: " . $conn->error . "</p>";
+}
+
 // Insertar algunos datos de ejemplo en la tabla perfil si está vacía
 $result = $conn->query("SELECT COUNT(*) as count FROM perfil");
 $row = $result->fetch_assoc();
@@ -88,9 +102,27 @@ if ($row['count'] == 0) {
     }
 }
 
+// Insertar algunos datos de ejemplo en la tabla pets si está vacía
+$result = $conn->query("SELECT COUNT(*) as count FROM pets");
+$row = $result->fetch_assoc();
+
+if ($row['count'] == 0) {
+    $sql = "INSERT INTO pets (id, nombre, edad, descripcion) VALUES 
+            ('1', 'Max', '5', 'Labrador Retriever, muy amigable'),
+            ('2', 'Luna', '3', 'Gato siamés, juguetona'),
+            ('3', 'Rocky', '2', 'Bulldog francés, tranquilo')";
+    
+    if ($conn->query($sql) === TRUE) {
+        echo "<p>Datos de ejemplo añadidos a la tabla 'pets'</p>";
+    } else {
+        echo "<p>Error al insertar datos de ejemplo en pets: " . $conn->error . "</p>";
+    }
+}
+
 $conn->close();
 
 echo "<p>¡Configuración completada con éxito!</p>";
 echo "<p><a href='http://localhost/api1/conexion.php'>Probar API de clientes</a></p>";
 echo "<p><a href='http://localhost/api1/productos.php'>Probar API de productos</a></p>";
+echo "<p><a href='http://localhost/api1/pets.php'>Probar API de mascotas</a></p>";
 ?>
