@@ -1,4 +1,4 @@
-import { petService } from "../service/pet-service.js";
+import { unifiedPetService as petService } from "../service/pet-service-unified.js";
 
 const crear_nueva_fila = (nombre, edad, descripcion, id) => {
     const fila = document.createElement('tr');

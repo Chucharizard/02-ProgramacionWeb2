@@ -1,4 +1,4 @@
-import { productService } from "../service/product-service.js";
+import { unifiedProductService as productService } from "../service/product-service-unified.js";
 
 const crear_nueva_fila = (nombre, precio, descripcion, id) => {
     const fila = document.createElement('tr');
@@ -37,7 +37,7 @@ productService.lista_productos()
         if (!Array.isArray(data)) {
             throw new Error("La respuesta de la API no es un array válido");
         }
-        console.log("Productos recibidos:", data); // Verificar los datos recibidos
+        console.log("Productos recibidos:", data); 
         data.forEach(({ nombre, precio, descripcion, id }) => {
             const nuevaFila = crear_nueva_fila(nombre, precio, descripcion, id);
             table.appendChild(nuevaFila);

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración de Backend</title>
+  <link rel="stylesheet" href="../assets/css/base/base.css" />
+  <link rel="stylesheet" href="../assets/css/componentes/header.css" />
+  <link rel="stylesheet" href="../assets/css/componentes/card.css" />
+  <link rel="stylesheet" href="../assets/css/componentes/button.css" />
+  <style>
+    .config-container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    .toggle-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #3ecf8e;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  </style>
+</head>
+<body>
+  <header class="header container">
+    <img
+      src="../assets/img/doguitoadm.svg"
+      alt="Logotipo Doguito"
+      class="header__logo"
+    />
+    <nav>
+      <ul class="header__list-nav">
+        <li class="header__link"><a href="./config.html">Configuración</a></li>
+        <li class="header__link"><a href="#">Dashboard</a></li>
+        <li class="header__link"><a href="./lista_productos.html">Productos</a></li>
+        <li class="header__link"><a href="./lista_cliente.html">Clientes</a></li>
+        <li class="header__link"><a href="./lista_pets.html">Pets</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main class="config-container">
+    <h1>Configuración de Backend</h1>
+    
+    <div class="toggle-container">
+      <div>
+        <h3>Proveedor de Datos</h3>
+        <p>Selecciona qué backend deseas usar para tu aplicación</p>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="backendToggle">
+        <span class="slider"></span>
+      </label>
+      <div id="currentBackend">PHP/XAMPP</div>
+    </div>
+    
+    <button class="button" id="saveBtn">Guardar Configuración</button>
+    
+    <div class="card" style="margin-top: 30px">
+      <h3>Estado Actual</h3>
+      <p>Backend: <span id="statusBackend">PHP/XAMPP</span></p>
+      <button class="button" id="testBtn">Probar Conexión</button>
+      <pre id="testResult" style="background: #f1f1f1; padding: 10px; margin-top: 10px;">Los resultados aparecerán aquí...</pre>
+    </div>
+  </main>
+  
+  <script type="module">
+    import { clientService } from '../service/client-service.js';
+    import { clientServiceSupa } from '../service/client-service-supa.js';
+    
+    // Carga la configuración de localStorage
+    const backendToggle = document.getElementById('backendToggle');
+    const currentBackend = document.getElementById('currentBackend');
+    const statusBackend = document.getElementById('statusBackend');
+    
+    // Cargar configuración guardada
+    const savedConfig = localStorage.getItem('useSupabase');
+    if (savedConfig === 'true') {
+      backendToggle.checked = true;
+      currentBackend.textContent = 'Supabase';
+      statusBackend.textContent = 'Supabase';
+    }
+    
+    // Actualizar texto al cambiar el toggle
+    backendToggle.addEventListener('change', () => {
+      currentBackend.textContent = backendToggle.checked ? 'Supabase' : 'PHP/XAMPP';
+    });
+    
+    // Guardar configuración
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      localStorage.setItem('useSupabase', backendToggle.checked);
+      statusBackend.textContent = backendToggle.checked ? 'Supabase' : 'PHP/XAMPP';
+      alert('Configuración guardada. Los cambios se aplicarán en la próxima carga de página.');
+    });
+    
+    // Probar conexión
+    document.getElementById('testBtn').addEventListener('click', async () => {
+      const testResult = document.getElementById('testResult');
+      testResult.textContent = 'Probando conexión...';
+      
+      try {
+        const useSupabase = localStorage.getItem('useSupabase') === 'true';
+        let result;
+        
+        if (useSupabase) {
+          result = await clientServiceSupa.lista_clientes();
+        } else {
+          result = await clientService.lista_clientes();
+        }
+        
+        testResult.textContent = JSON.stringify(result, null, 2);
+      } catch (error) {
+        testResult.textContent = `Error: ${error.message}`;
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>

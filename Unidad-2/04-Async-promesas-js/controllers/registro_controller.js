@@ -1,4 +1,4 @@
-import { clientService } from "../service/client-service.js";
+import { unifiedClientService as clientService } from "../service/client-service-unified.js";
 const formulario=document.querySelector("[data-form]")
 formulario.addEventListener("submit",(evento)=>{
     evento.preventDefault();

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Supabase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #3ecf8e;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    pre {
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .actions {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prueba de conexión con Supabase</h1>
+  <div>
+    <button id="testListar">Listar clientes</button>
+  </div>
+
+  <div class="form-container">
+    <h3>Crear/Actualizar Cliente</h3>
+    <div class="form-group">
+      <label for="clienteId">ID (solo para actualizar):</label>
+      <input type="text" id="clienteId" placeholder="Dejar vacío para crear nuevo">
+    </div>
+    <div class="form-group">
+      <label for="clienteNombre">Nombre:</label>
+      <input type="text" id="clienteNombre" required>
+    </div>
+    <div class="form-group">
+      <label for="clienteEmail">Email:</label>
+      <input type="email" id="clienteEmail" required>
+    </div>
+    <div class="actions">
+      <button id="btnCrear">Crear cliente</button>
+      <button id="btnActualizar">Actualizar cliente</button>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <h3>Eliminar Cliente</h3>
+    <div class="form-group">
+      <label for="deleteId">ID del cliente a eliminar:</label>
+      <input type="text" id="deleteId" required>
+    </div>
+    <div class="actions">
+      <button id="btnEliminar">Eliminar cliente</button>
+    </div>
+  </div>
+
+  <h3>Resultados:</h3>
+  <pre id="result">Los resultados aparecerán aquí...</pre>
+
+  <script type="module">
+    import { clientServiceSupa } from '../service/client-service-supa.js';
+    
+    // Listar clientes
+    document.getElementById('testListar').addEventListener('click', async () => {
+      try {
+        const result = await clientServiceSupa.lista_clientes();
+        document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+      } catch (error) {
+        document.getElementById('result').textContent = `Error: ${error.message}`;
+        console.error(error);
+      }
+    });
+
+    // Crear cliente
+    document.getElementById('btnCrear').addEventListener('click', async () => {
+      try {
+        const nombre = document.getElementById('clienteNombre').value;
+        const email = document.getElementById('clienteEmail').value;
+        
+        if (!nombre || !email) {
+          alert('Por favor completa todos los campos');
+          return;
+        }
+        
+        const result = await clientServiceSupa.crearCliente(nombre, email);
+        document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        alert('Cliente creado con éxito!');
+      } catch (error) {
+        document.getElementById('result').textContent = `Error: ${error.message}`;
+        console.error(error);
+        alert('Error al crear cliente');
+      }
+    });
+
+    // Actualizar cliente
+    document.getElementById('btnActualizar').addEventListener('click', async () => {
+      try {
+        const id = document.getElementById('clienteId').value;
+        const nombre = document.getElementById('clienteNombre').value;
+        const email = document.getElementById('clienteEmail').value;
+        
+        if (!id || !nombre || !email) {
+          alert('Por favor completa todos los campos, incluyendo el ID');
+          return;
+        }
+        
+        const result = await clientServiceSupa.actualizarCliente(nombre, email, id);
+        document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        alert('Cliente actualizado con éxito!');
+      } catch (error) {
+        document.getElementById('result').textContent = `Error: ${error.message}`;
+        console.error(error);
+        alert('Error al actualizar cliente');
+      }
+    });
+
+    // Eliminar cliente
+    document.getElementById('btnEliminar').addEventListener('click', async () => {
+      try {
+        const id = document.getElementById('deleteId').value;
+        
+        if (!id) {
+          alert('Por favor ingresa el ID del cliente a eliminar');
+          return;
+        }
+        
+        if (!confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
+          return;
+        }
+        
+        const result = await clientServiceSupa.eliminarCliente(id);
+        document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        alert('Cliente eliminado con éxito!');
+      } catch (error) {
+        document.getElementById('result').textContent = `Error: ${error.message}`;
+        console.error(error);
+        alert('Error al eliminar cliente');
+      }
+    });
+  </script>
+</body>
+</html>
