@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinePan - Administración</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="./index.html" class="active">Inicio</a></li>
+            <li><a href="./peliculas.html">Películas</a></li>
+            <li><a href="./funciones.html">Funciones</a></li>
+            <li><a href="./clientes.html">Clientes</a></li>
+            <li><a href="./boletos.html">Boletos</a></li>
+        </ul>
+    </nav>
+    
+    <div class="hero">
+        <h1>Sistema de Administracion CinePlus</h1>
+        <p>Gestiona tus salas de cine, películas, horarios, clientes y boletos en un solo lugar</p>
+    </div>
+    
+    <div class="container">
+        <div class="admin-cards">
+            <div class="card">
+                <div class="card-header">Películas</div>
+                <div class="card-body">
+                    <p>Añade y actualiza el catalogo de pelis.</p>
+                    <a href="./peliculas.html" class="btn btn--primary">Gestionar</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">Funciones</div>
+                <div class="card-body">
+                    <p>Programa funciones.</p>
+                    <a href="./funciones.html" class="btn btn--primary">Gestionar</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">Clientes</div>
+                <div class="card-body">
+                    <p>Administra la informacion.</p>
+                    <a href="./clientes.html" class="btn btn--primary">Gestionar</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">Boletos</div>
+                <div class="card-body">
+                    <p>Gestiona la venta de boletos y asignacion de asientos.</p>
+                    <a href="./boletos.html" class="btn btn--primary">Gestionar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+         <p>&copy; 2025 CinePan - Sistema de Administracion de Cines</p>
+    </footer>
+    
+    <script type="module" src="../service/supabase-config.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinePan - Boletos</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="./index.html">Inicio</a></li>
+            <li><a href="./peliculas.html">Películas</a></li>
+            <li><a href="./funciones.html">Funciones</a></li>
+            <li><a href="./clientes.html">Clientes</a></li>
+            <li><a href="./boletos.html" class="active">Boletos</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>Gestión de Boletos</h1>
+        
+        <div class="form-container mb-2">
+            <h2 class="form-title">Vender Boleto</h2>
+            <form data-form>
+                <input type="hidden" data-id>
+                
+                <div class="form-group">
+                    <label for="funcion">Función:</label>
+                    <select id="funcion" data-funcion required>
+                        <option value="">Seleccione una función</option>
+                        <!-- -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cliente">Cliente:</label>
+                    <select id="cliente" data-cliente required>
+                        <option value="">Seleccione un cliente</option>
+                        <!--  -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="asiento">Asiento:</label>
+                    <input type="text" id="asiento" data-asiento required placeholder="Ej: A12">
+                </div>
+                
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" data-precio step="0.01" min="0" required placeholder="Ej: 10.50">
+                </div>
+                
+                <div>
+                    <button type="submit" class="btn btn--primary">Vender Boleto</button>
+                    <button type="button" class="btn btn--secondary" data-limpiar>Limpiar</button>
+                </div>
+            </form>
+        </div>
+        
+        <div data-alert></div>
+        
+        <h2>Listado de Boletos Vendidos</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Pelicula</th>
+                    <th>Sala</th>
+                    <th>Fecha/Hora</th>
+                    <th>Cliente</th>
+                    <th>Asiento</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody data-table></tbody>
+        </table>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 CinePan - Sistema de Administracion de Cines</p>
+    </footer>
+    
+    <script type="module" src="../controllers/boleto-controller.js"></script>
+</body>
+</html>

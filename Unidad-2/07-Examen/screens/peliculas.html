@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinePan - Películas</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="./index.html">Inicio</a></li>
+            <li><a href="./peliculas.html" class="active">Películas</a></li>
+            <li><a href="./funciones.html">Funciones</a></li>
+            <li><a href="./clientes.html">Clientes</a></li>
+            <li><a href="./boletos.html">Boletos</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>Gestión de Películas</h1>
+        
+        <div class="form-container mb-2">
+            <h2 class="form-title">Agregar/Editar Película</h2>
+            <form id="peliculaForm">
+                <input type="hidden" id="peliculaId">
+                <div class="form-group">
+                    <label for="titulo">Titulo:</label>
+                    <input type="text" id="titulo" required placeholder="Ej: la bicicleta de los Huanca">
+                </div>
+                <div class="form-group">
+                    <label for="duracion">Duracion (en minutos):</label>
+                    <input type="number" id="duracion" required min="1" placeholder="Ej: 120">
+                </div>
+                <div class="form-group">
+                    <label for="clasificacion">Clasificacion:</label>
+                    <select id="clasificacion">
+                        <option value="">Selecciona una clasificacion</option>
+                        <option value="G">G (Público General)</option>
+                        <option value="PG">PG (Guía Parental)</option>
+                        <option value="PG-13">PG-13 (Padres Fuertemente Advertidos)</option>
+                        <option value="R">R (Restringido)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="imagen_url">URL de la imagen:</label>
+                    <input type="url" id="imagen_url" placeholder="https://labicicletadeloshuanca.com/imagen.jpg">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn--primary" id="btnGuardar">Guardar</button>
+                    <button type="button" class="btn btn--secondary" id="btnLimpiar">Limpiar</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="alertContainer"></div>
+        
+        <h2>Catálogo de Películas</h2>
+        <div class="admin-cards" id="catalogoPeliculas">
+            <!-- -->
+        </div>
+    </div>
+    
+    <footer>
+         <p>&copy; 2025 CinePan - Sistema de Administracion de Cines</p>
+    </footer>
+    
+    <script type="module" src="../controllers/pelicula-controller.js"></script>
+</body>
+</html>
