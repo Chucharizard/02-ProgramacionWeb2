@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinePlus - Configuración</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="./index.html">Inicio</a></li>
+            <li><a href="./peliculas.html">Películas</a></li>
+            <li><a href="./funciones.html">Funciones</a></li>
+            <li><a href="./clientes.html">Clientes</a></li>
+            <li><a href="./boletos.html">Boletos</a></li>
+            <li><a href="./config.html" class="active">Configuración</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="form-container">
+            <h1 class="form-title">⚙️ Configuración de Backend</h1>
+            
+            <div class="config-section">
+                <h3>Selecciona tu proveedor de datos:</h3>
+                <p>Elige qué backend deseas usar para almacenar los datos del sistema de cine.</p>
+                  <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="backend" value="supabase" id="supabase">
+                        <span class="radio-label">
+                            <strong>☁️ Supabase (Cloud)</strong>
+                            <small>Base de datos PostgreSQL en la nube</small>
+                        </span>
+                    </label>
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="backend" value="php" id="php">
+                        <span class="radio-label">
+                            <strong>🐬 PHP + MySQL (Local)</strong>
+                            <small>Base de datos MySQL local con XAMPP</small>
+                        </span>
+                    </label>
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="backend" value="json" id="json">
+                        <span class="radio-label">
+                            <strong>📄 JSON (Memoria)</strong>
+                            <small>Almacenamiento temporal en localStorage</small>
+                        </span>
+                    </label>
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="backend" value="sqlserver" id="sqlserver">
+                        <span class="radio-label">
+                            <strong>🏢 PHP + SQL Server (Local)</strong>
+                            <small>Base de datos SQL Server local con XAMPP</small>
+                        </span>
+                    </label>
+                </div>
+                
+                <button class="btn btn--primary" id="guardarConfig">💾 Guardar Configuración</button>
+            </div>
+            
+            <div class="config-section">
+                <h3>📊 Estado Actual</h3>
+                <div class="status-info">
+                    <p><strong>Backend activo:</strong> <span id="estadoBackend">Supabase</span></p>
+                    <p><strong>Estado:</strong> <span id="estadoConexion">No probado</span></p>
+                </div>
+                
+                <div class="btn-group mt-2">
+                    <button class="btn btn--secondary" id="probarConexion">🔍 Probar Conexión</button>
+                    <button class="btn btn--secondary" id="resetBtn">🔄 Restablecer</button>
+                </div>
+            </div>
+            
+            <div class="config-section">
+                <h3>📝 Resultados de Prueba</h3>
+                <div id="resultadoPrueba">Los resultados de la prueba aparecerán aquí...</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 CinePan - Sistema de Administración de Cines</p>
+    </footer>
+    
+    <script type="module" src="../controllers/config-controller.js"></script>
+</body>
+</html>

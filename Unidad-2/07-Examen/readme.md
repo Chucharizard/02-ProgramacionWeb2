@@ -36,3 +36,11 @@ asiento text not null,
 fecha_compra timestamp default now(),
 precio numeric(10,2) not null
 );
+
+
+URLs finales para php ekizde:
+Crear tablas: http://localhost/api2/crear_tablas_cine.php
+API Películas: http://localhost/api2/peliculas.php
+API Funciones: http://localhost/api2/funciones.php
+API Clientes: http://localhost/api2/clientes.php
+API Boletos: http://localhost/api2/boletos.php

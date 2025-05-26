@@ -1,5 +1,5 @@
-import { funcionService } from '../service/funcion-service.js';
-import { peliculaService } from '../service/pelicula-service.js';
+import { funcionService } from '../service/service-selector.js';
+import { peliculaService } from '../service/service-selector.js';
 
 const formulario = document.querySelector("[data-form]");
 const funcionId = document.querySelector("[data-id]");

@@ -1,6 +1,6 @@
-import { boletoService } from '../service/boleto-service.js';
-import { funcionService } from '../service/funcion-service.js';
-import { clienteService } from '../service/cliente-service.js';
+import { boletoService } from '../service/service-selector.js';
+import { funcionService } from '../service/service-selector.js';
+import { clienteService } from '../service/service-selector.js';
 
 const formulario = document.querySelector("[data-form]");
 const boletoId = document.querySelector("[data-id]");

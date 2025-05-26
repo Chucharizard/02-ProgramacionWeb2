@@ -1,4 +1,3 @@
-// Seleccionar elementos con data-attributes
 const tareaInput = document.querySelector('[data-tarea]');
 const fechaInput = document.querySelector('[data-fecha]');
 const descripcionInput = document.querySelector('[data-descripcion]');

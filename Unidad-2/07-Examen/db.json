@@ -1,0 +1,95 @@
+{
+  "peliculas": [
+    {
+      "id": "1",
+      "titulo": "Avengers: Endgame",
+      "duracion": 181,
+      "clasificacion": "PG-13",
+      "imagen_url": "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg"
+    },
+    {
+      "id": "2",
+      "titulo": "El Padrino",
+      "duracion": 175,
+      "clasificacion": "R",
+      "imagen_url": "https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"
+    },
+    {
+      "id": "3",
+      "titulo": "Toy Story 4",
+      "duracion": 100,
+      "clasificacion": "G",
+      "imagen_url": "https://image.tmdb.org/t/p/w500/w9kR8qbmQ01HwnvK4alvnQ2ca0L.jpg"
+    }
+  ],
+  "funciones": [
+    {
+      "id": "func-1",
+      "pelicula_id": "1",
+      "sala": "Sala 1",
+      "fecha": "2025-01-10",
+      "hora": "18:00",
+      "precio": 12.50
+    },
+    {
+      "id": "func-2",
+      "pelicula_id": "1",
+      "sala": "Sala 2",
+      "fecha": "2025-01-10",
+      "hora": "21:00",
+      "precio": 15.00
+    },
+    {
+      "id": "func-3",
+      "pelicula_id": "2",
+      "sala": "Sala 3",
+      "fecha": "2025-01-11",
+      "hora": "19:30",
+      "precio": 13.75
+    },
+    {
+      "id": "func-4",
+      "pelicula_id": "3",
+      "sala": "Sala 1",
+      "fecha": "2025-01-12",
+      "hora": "16:00",
+      "precio": 10.00
+    }
+  ],
+  "clientes": [
+    {
+      "id": "cli-1",
+      "nombre": "Juan Pérez",
+      "email": "juan.perez@email.com",
+      "telefono": "555-0123"
+    },
+    {
+      "id": "cli-2",
+      "nombre": "María García",
+      "email": "maria.garcia@email.com",
+      "telefono": "555-0124"
+    },
+    {
+      "id": "cli-3",
+      "nombre": "Carlos López",
+      "email": "carlos.lopez@email.com",
+      "telefono": "555-0125"
+    }
+  ],
+  "boletos": [
+    {
+      "id": "bol-1",
+      "funcion_id": "func-1",
+      "cliente_id": "cli-1",
+      "asiento": "A5",
+      "precio": 12.50
+    },
+    {
+      "id": "bol-2",
+      "funcion_id": "func-2",
+      "cliente_id": "cli-2",
+      "asiento": "B8",
+      "precio": 15.00
+    }
+  ]
+}

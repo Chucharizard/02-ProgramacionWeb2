@@ -1,4 +1,4 @@
-import { peliculaService } from '../service/pelicula-service.js';
+import { peliculaService } from '../service/service-selector.js';
 
 const peliculaForm = document.getElementById('peliculaForm');
 const peliculaId = document.getElementById('peliculaId');

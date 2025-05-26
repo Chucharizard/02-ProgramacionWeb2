@@ -268,4 +268,57 @@ footer {
 .mt-2 { margin-top: 1rem; }
 .mb-2 { margin-bottom: 1rem; }
 
+.config-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  background-color: #fafafa;
+}
 
+.radio-group {
+  margin: 1rem 0;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border: 2px solid var(--gray);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.radio-option:hover {
+  border-color: var(--secondary);
+  background-color: #f0f8ff;
+}
+
+.radio-option input[type="radio"]:checked + .radio-label {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.radio-option input[type="radio"]:checked {
+  accent-color: var(--secondary);
+}
+
+.radio-label {
+  margin-left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-label small {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.status-info {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--secondary);
+}
