@@ -21,7 +21,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if (!$conn) {
     http_response_code(500);
-    die(json_encode(["error" => "Error de conexión a SQL Server"]));
+    die(json_encode(["error" => "Error de conexion a SQL Server"]));
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -124,7 +124,7 @@ switch ($method) {
 
     default:
         http_response_code(405);
-        echo json_encode(["error" => "Método no permitido"]);
+        echo json_encode(["error" => "Metodo no permitido"]);
 }
 
 sqlsrv_close($conn);

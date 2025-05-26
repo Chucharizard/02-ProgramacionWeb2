@@ -21,7 +21,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if (!$conn) {
     http_response_code(500);
-    die(json_encode(["error" => "Error de conexión a SQL Server"]));
+    die(json_encode(["error" => "Error de conexinn a SQL Server"]));
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -33,11 +33,11 @@ switch ($method) {
             $stmt = sqlsrv_prepare($conn, 
                 "SELECT b.*, c.nombre as cliente_nombre, c.email as cliente_email,
                         f.sala, f.fecha, f.hora, p.titulo as pelicula_titulo
-                 FROM boletos b 
-                 LEFT JOIN clientes c ON b.cliente_id = c.id
-                 LEFT JOIN funciones f ON b.funcion_id = f.id
-                 LEFT JOIN peliculas p ON f.pelicula_id = p.id
-                 WHERE b.id = ?", 
+                FROM boletos b 
+                LEFT JOIN clientes c ON b.cliente_id = c.id
+                LEFT JOIN funciones f ON b.funcion_id = f.id
+                LEFT JOIN peliculas p ON f.pelicula_id = p.id
+                WHERE b.id = ?", 
                 array($id)
             );
             if ($stmt && sqlsrv_execute($stmt)) {
@@ -60,15 +60,15 @@ switch ($method) {
             $stmt = sqlsrv_query($conn, 
                 "SELECT b.*, c.nombre as cliente_nombre, c.email as cliente_email,
                         f.sala, f.fecha, f.hora, p.titulo as pelicula_titulo
-                 FROM boletos b 
-                 LEFT JOIN clientes c ON b.cliente_id = c.id
-                 LEFT JOIN funciones f ON b.funcion_id = f.id
-                 LEFT JOIN peliculas p ON f.pelicula_id = p.id
-                 ORDER BY b.fecha_compra DESC"
+                FROM boletos b 
+                LEFT JOIN clientes c ON b.cliente_id = c.id
+                LEFT JOIN funciones f ON b.funcion_id = f.id
+                LEFT JOIN peliculas p ON f.pelicula_id = p.id
+                ORDER BY b.fecha_compra DESC"
             );
             $boletos = [];
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                // Convertir fechas para JSON
+                // Aca convertimos fechas para JSON
                 if ($row['fecha_compra']) {
                     $row['fecha_compra'] = $row['fecha_compra']->format('Y-m-d H:i:s');
                 }
@@ -95,13 +95,13 @@ switch ($method) {
             exit();
         }
 
-        // Verificar si el asiento ya está ocupado
-        $checkStmt = sqlsrv_prepare($conn, 
+        // Verificamos si el asiento ya esta ocupado
+        $checkStmt = sqlsrv_prepare($conn,  
             "SELECT COUNT(*) as count FROM boletos WHERE funcion_id = ? AND asiento = ?",
             array($funcion_id, $asiento)
         );
         
-        if ($checkStmt && sqlsrv_execute($checkStmt)) {
+        if ($checkStmt && sqlsrv_execute($checkStmt)) { /
             $result = sqlsrv_fetch_array($checkStmt, SQLSRV_FETCH_ASSOC);
             if ($result['count'] > 0) {
                 http_response_code(400);

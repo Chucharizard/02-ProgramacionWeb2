@@ -21,7 +21,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if (!$conn) {
     http_response_code(500);
-    die(json_encode(["error" => "Error de conexión a SQL Server"]));
+    die(json_encode(["error" => "Error de conexion a SQL Server"]));
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -37,7 +37,7 @@ switch ($method) {
                     echo json_encode($pelicula);
                 } else {
                     http_response_code(404);
-                    echo json_encode(["error" => "Película no encontrada"]);
+                    echo json_encode(["error" => "Pelicula no encontrada"]);
                 }
             }
         } else {
@@ -60,7 +60,7 @@ switch ($method) {
 
         if (empty($titulo)) {
             http_response_code(400);
-            echo json_encode(["error" => "El título es obligatorio"]);
+            echo json_encode(["error" => "El titulo es obligatorio"]);
             exit();
         }
 
@@ -71,10 +71,10 @@ switch ($method) {
 
         if ($stmt && sqlsrv_execute($stmt)) {
             http_response_code(201);
-            echo json_encode(["message" => "Película creada", "id" => $id]);
+            echo json_encode(["message" => "Pelicula creada", "id" => $id]);
         } else {
             http_response_code(500);
-            echo json_encode(["error" => "Error al crear la película"]);
+            echo json_encode(["error" => "Error al crear la pelicula"]);
         }
         break;
 
@@ -88,7 +88,7 @@ switch ($method) {
         
         if (empty($id) || empty($titulo)) {
             http_response_code(400);
-            echo json_encode(["error" => "ID y título son obligatorios"]);
+            echo json_encode(["error" => "ID y titulo son obligatorios"]);
             exit();
         }
         
@@ -98,10 +98,10 @@ switch ($method) {
         );
         
         if ($stmt && sqlsrv_execute($stmt)) {
-            echo json_encode(["message" => "Película actualizada"]);
+            echo json_encode(["message" => "Pelicula actualizada"]);
         } else {
             http_response_code(500);
-            echo json_encode(["error" => "Error al actualizar la película"]);
+            echo json_encode(["error" => "Error al actualizar la pelicula"]);
         }
         break;
 
@@ -117,16 +117,16 @@ switch ($method) {
         $stmt = sqlsrv_prepare($conn, "DELETE FROM peliculas WHERE id = ?", array($id));
         
         if ($stmt && sqlsrv_execute($stmt)) {
-            echo json_encode(["message" => "Película eliminada"]);
+            echo json_encode(["message" => "Pelicula eliminada"]);
         } else {
             http_response_code(500);
-            echo json_encode(["error" => "Error al eliminar la película"]);
+            echo json_encode(["error" => "Error al eliminar la pelicula"]);
         }
         break;
 
     default:
         http_response_code(405);
-        echo json_encode(["error" => "Método no permitido"]);
+        echo json_encode(["error" => "Metodo no permitido"]);
 }
 
 sqlsrv_close($conn);

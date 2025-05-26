@@ -127,5 +127,4 @@ const limpiarFormulario = () => {
 };
 
 btnLimpiar.addEventListener('click', limpiarFormulario);
-
 document.addEventListener('DOMContentLoaded', cargarClientes);

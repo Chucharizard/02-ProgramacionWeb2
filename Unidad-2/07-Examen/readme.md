@@ -38,7 +38,13 @@ precio numeric(10,2) not null
 );
 
 
-URLs finales para php ekizde:
+
+
+### INICIAR db.json
+npx json-server --watch db.json --port 3000
+
+
+### URLs finales para php ekizde:
 Crear tablas: http://localhost/api2/crear_tablas_cine.php
 API Películas: http://localhost/api2/peliculas.php
 API Funciones: http://localhost/api2/funciones.php

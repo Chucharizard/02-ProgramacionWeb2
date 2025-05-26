@@ -56,23 +56,23 @@ guardarBtn.addEventListener('click', () => {
     }[backendType];
     
     estadoBackend.textContent = backendName;
-    estadoConexion.textContent = 'Configuración guardada - Reinicia la página';
+    estadoConexion.textContent = 'Confi guardada - Reinicia la pagina';
     
     mostrarAlerta(`Configuración guardada (${backendName}). Recarga la página para aplicar cambios.`, 'success');
 });
 
-// Probar conexión
+// Probamos la conexion
 probarBtn.addEventListener('click', async () => {
     estadoConexion.textContent = 'Probando...';
     resultadoPrueba.innerHTML = '';
     
     try {
         const peliculas = await peliculaService.listar_peliculas();
-        estadoConexion.textContent = 'Conexión exitosa';
+        estadoConexion.textContent = 'Conexion exitosa';
         resultadoPrueba.innerHTML = `
             <div class="alert alert--success">
-                <strong>Conexión exitosa!</strong><br>
-                Se encontraron ${peliculas.length} películas en la base de datos.
+                <strong>Conexion exitosa!</strong><br>
+                Se encontraron ${peliculas.length} peliculas en la base de datos
             </div>
         `;
     } catch (error) {
@@ -87,13 +87,13 @@ probarBtn.addEventListener('click', async () => {
 });
 
 resetBtn.addEventListener('click', () => {
-    if (confirm('¿Estás seguro de que quieres restablecer la configuración a Supabase?')) {
+    if (confirm('estas seguro de que quieres restablecer la Confi a Supabase?')) {
         localStorage.removeItem('backendType');
         localStorage.removeItem('usePhp');
         supabaseRadio.checked = true;
         estadoBackend.textContent = 'Supabase';
-        estadoConexion.textContent = 'Configuración restablecida';
-        mostrarAlerta('Configuración restablecida a Supabase por defecto.', 'success');
+        estadoConexion.textContent = 'Confi restablecida';
+        mostrarAlerta('Confi restablecida a Supabase por defecto.', 'success');
     }
 });
 

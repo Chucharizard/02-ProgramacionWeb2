@@ -21,9 +21,8 @@ const normalizarBoletosConRelaciones = async (boletos) => {
         return boletos;
     }
     
-    // Para JSON Server y SQL Server se necesitaa hacer JOINs manuales
+    // Para json y SQL Server necesitamos hacer joins manuales asi quee:
     try {
-        // Obtener todas las funciones, clientes y películas
         const [funciones, clientes, peliculas] = await Promise.all([
             funcionService.listar_funciones(),
             clienteService.listar_clientes(),
@@ -31,12 +30,10 @@ const normalizarBoletosConRelaciones = async (boletos) => {
         ]);
         
         return boletos.map(boleto => { // Normalizar boleto
- 
             const funcion = funciones.find(f => f.id === boleto.funcion_id) || {};
-            
-            const cliente = clientes.find(c => c.id === boleto.cliente_id) || {}; // Buscar el cliente relacionado
-            
-            const pelicula = peliculas.find(p => p.id === funcion.pelicula_id) || {}; // Buscar la película relacionada a la función
+            const cliente = clientes.find(c => c.id === boleto.cliente_id) || {}; 
+            const pelicula = peliculas.find(p => p.id === funcion.pelicula_id) || {}; 
+
             // Con esto retornamos boleto con estructura similar a Supabase
             return {
                 ...boleto,

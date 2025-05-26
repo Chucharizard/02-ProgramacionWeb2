@@ -125,7 +125,7 @@
 
         default:
             http_response_code(405);
-            echo json_encode(["error" => "Método no permitido"]);
+            echo json_encode(["error" => "Metodo no permitido"]);
     }
 
     $conn->close();

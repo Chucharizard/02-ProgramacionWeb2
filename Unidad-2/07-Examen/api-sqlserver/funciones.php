@@ -21,7 +21,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if (!$conn) {
     http_response_code(500);
-    die(json_encode(["error" => "Error de conexión a SQL Server"]));
+    die(json_encode(["error" => "Error de conexion a SQL Server"]));
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -47,7 +47,7 @@ switch ($method) {
                     echo json_encode($funcion);
                 } else {
                     http_response_code(404);
-                    echo json_encode(["error" => "Función no encontrada"]);
+                    echo json_encode(["error" => "Funcion no encontrada"]);
                 }
             }
         } else {
@@ -59,7 +59,7 @@ switch ($method) {
             );
             $funciones = [];
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                // Convertir fecha para JSON
+
                 if ($row['fecha']) {
                     $row['fecha'] = $row['fecha']->format('Y-m-d');
                 }
@@ -80,7 +80,7 @@ switch ($method) {
 
         if (empty($pelicula_id) || empty($sala) || empty($fecha) || empty($hora)) {
             http_response_code(400);
-            echo json_encode(["error" => "Película, sala, fecha y hora son obligatorios"]);
+            echo json_encode(["error" => "Pelicula, sala, fecha y hora son obligatorios"]);
             exit();
         }
 
@@ -91,10 +91,10 @@ switch ($method) {
 
         if ($stmt && sqlsrv_execute($stmt)) {
             http_response_code(201);
-            echo json_encode(["message" => "Función creada", "id" => $id]);
+            echo json_encode(["message" => "Funcion creada", "id" => $id]);
         } else {
             http_response_code(500);
-            echo json_encode(["error" => "Error al crear la función"]);
+            echo json_encode(["error" => "Error al crear la funcion"]);
         }
         break;
 
@@ -122,7 +122,7 @@ switch ($method) {
             echo json_encode(["message" => "Función actualizada"]);
         } else {
             http_response_code(500);
-            echo json_encode(["error" => "Error al actualizar la función"]);
+            echo json_encode(["error" => "Error al actualizar la funcion"]);
         }
         break;
 
@@ -138,16 +138,16 @@ switch ($method) {
         $stmt = sqlsrv_prepare($conn, "DELETE FROM funciones WHERE id = ?", array($id));
         
         if ($stmt && sqlsrv_execute($stmt)) {
-            echo json_encode(["message" => "Función eliminada"]);
+            echo json_encode(["message" => "Funcion eliminada"]);
         } else {
             http_response_code(500);
-            echo json_encode(["error" => "Error al eliminar la función"]);
+            echo json_encode(["error" => "Error al eliminar la funcion"]);
         }
         break;
 
     default:
         http_response_code(405);
-        echo json_encode(["error" => "Método no permitido"]);
+        echo json_encode(["error" => "Mwtodo no permitido"]);
 }
 
 sqlsrv_close($conn);

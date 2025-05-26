@@ -41,13 +41,13 @@
                 $stmt->close();
             } else {
                 $query = "SELECT b.*, 
-                         f.sala, f.fecha, f.hora,
-                         p.titulo as pelicula_titulo,
-                         c.nombre as cliente_nombre, c.email as cliente_email
-                         FROM boletos b 
-                         LEFT JOIN funciones f ON b.funcion_id = f.id
-                         LEFT JOIN peliculas p ON f.pelicula_id = p.id
-                         LEFT JOIN clientes c ON b.cliente_id = c.id";
+                        f.sala, f.fecha, f.hora,
+                        p.titulo as pelicula_titulo,
+                        c.nombre as cliente_nombre, c.email as cliente_email
+                        FROM boletos b 
+                        LEFT JOIN funciones f ON b.funcion_id = f.id
+                        LEFT JOIN peliculas p ON f.pelicula_id = p.id
+                        LEFT JOIN clientes c ON b.cliente_id = c.id";
                 $result = $conn->query($query);
                 $boletos = [];
                 while ($row = $result->fetch_assoc()) {

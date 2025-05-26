@@ -36,7 +36,7 @@
                     echo json_encode($pelicula);
                 } else {
                     http_response_code(404);
-                    echo json_encode(["error" => "Película no encontrada"]);
+                    echo json_encode(["error" => "Pelicula no encontrada"]);
                 }
                 $stmt->close();
             } else {
@@ -59,7 +59,7 @@
 
             if (empty($titulo)) {
                 http_response_code(400);
-                echo json_encode(["error" => "El título es obligatorio"]);
+                echo json_encode(["error" => "El titulo es obligatorio"]);
                 exit();
             }
 
@@ -68,10 +68,10 @@
 
             if ($stmt->execute()) {
                 http_response_code(201);
-                echo json_encode(["message" => "Película creada", "id" => $id]);
+                echo json_encode(["message" => "Pelicula creada", "id" => $id]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al crear la película: " . $stmt->error]);
+                echo json_encode(["error" => "Error al crear la pelicula: " . $stmt->error]);
             }
             $stmt->close();
             break;
@@ -86,7 +86,7 @@
             
             if (empty($id) || empty($titulo)) {
                 http_response_code(400);
-                echo json_encode(["error" => "ID y título son obligatorios"]);
+                echo json_encode(["error" => "ID y titulo son obligatorios"]);
                 exit();
             }
             
@@ -98,7 +98,7 @@
                 echo json_encode(["message" => "Película actualizada"]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al actualizar la película"]);
+                echo json_encode(["error" => "Error al actualizar la pelicula"]);
             }
             $stmt->close();
             break;
@@ -117,17 +117,17 @@
             
             if ($stmt->execute()) {
                 http_response_code(200);
-                echo json_encode(["message" => "Película eliminada"]);
+                echo json_encode(["message" => "Pelicula eliminada"]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al eliminar la película"]);
+                echo json_encode(["error" => "Error al eliminar la pelicula"]);
             }
             $stmt->close();
             break;
 
         default:
             http_response_code(405);
-            echo json_encode(["error" => "Método no permitido"]);
+            echo json_encode(["error" => "Metodo no permitido"]);
     }
 
     $conn->close();

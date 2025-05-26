@@ -36,7 +36,7 @@
                     echo json_encode($funcion);
                 } else {
                     http_response_code(404);
-                    echo json_encode(["error" => "Función no encontrada"]);
+                    echo json_encode(["error" => "Funcion no encontrada"]);
                 }
                 $stmt->close();
             } else {
@@ -84,10 +84,10 @@
 
             if ($stmt->execute()) {
                 http_response_code(201);
-                echo json_encode(["message" => "Función creada", "id" => $id]);
+                echo json_encode(["message" => "Funcion creada", "id" => $id]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al crear la función: " . $stmt->error]);
+                echo json_encode(["error" => "Error al crear la funcion: " . $stmt->error]);
             }
             $stmt->close();
             break;
@@ -112,10 +112,10 @@
             
             if ($stmt->execute()) {
                 http_response_code(200);
-                echo json_encode(["message" => "Función actualizada"]);
+                echo json_encode(["message" => "Funcion actualizada"]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al actualizar la función"]);
+                echo json_encode(["error" => "Error al actualizar la funcion"]);
             }
             $stmt->close();
             break;
@@ -134,17 +134,17 @@
             
             if ($stmt->execute()) {
                 http_response_code(200);
-                echo json_encode(["message" => "Función eliminada"]);
+                echo json_encode(["message" => "Funcion eliminada"]);
             } else {
                 http_response_code(500);
-                echo json_encode(["error" => "Error al eliminar la función"]);
+                echo json_encode(["error" => "Error al eliminar la funcion"]);
             }
             $stmt->close();
             break;
 
         default:
             http_response_code(405);
-            echo json_encode(["error" => "Método no permitido"]);
+            echo json_encode(["error" => "Metodo no permitido"]);
     }
 
     $conn->close();

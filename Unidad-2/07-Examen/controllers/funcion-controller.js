@@ -31,7 +31,6 @@ const normalizarFuncionesConRelaciones = async (funciones) => {
             };
         });
     } catch (error) {
-        console.error('Error al normalizar funciones:', error);
         return funciones; 
     }
 };
@@ -136,7 +135,7 @@ formulario.addEventListener('submit', async (e) => {
                 datosForm.hora,
                 datosForm.precio
             );
-            mostrarAlerta('Funcinn creada con ettsito', 'success');
+            mostrarAlerta('Funcion creada con ettsito', 'success');
         }
         
         limpiarFormulario();
