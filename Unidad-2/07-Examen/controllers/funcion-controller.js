@@ -1,6 +1,7 @@
 import { funcionService } from '../service/service-selector.js';
 import { peliculaService } from '../service/service-selector.js';
 
+
 const formulario = document.querySelector("[data-form]");
 const funcionId = document.querySelector("[data-id]");
 const peliculaSelect = document.querySelector("[data-pelicula]");
@@ -11,6 +12,29 @@ const precioInput = document.querySelector("[data-precio]");
 const btnLimpiar = document.querySelector("[data-limpiar]");
 const tablaFunciones = document.querySelector("[data-table]");
 const alertContainer = document.querySelector("[data-alert]");
+
+const normalizarFuncionesConRelaciones = async (funciones) => {
+    const backendType = localStorage.getItem('backendType') || 'supabase';
+    
+    if (backendType === 'supabase') {
+        return funciones;
+    }
+    try {
+        const peliculas = await peliculaService.listar_peliculas();
+        
+        return funciones.map(funcion => {
+            const pelicula = peliculas.find(p => p.id === funcion.pelicula_id) || {};
+            
+            return {
+                ...funcion,
+                peliculas: pelicula
+            };
+        });
+    } catch (error) {
+        console.error('Error al normalizar funciones:', error);
+        return funciones; 
+    }
+};
 
 const mostrarAlerta = (mensaje, tipo) => {
     alertContainer.innerHTML = `<div class="alert alert--${tipo}">${mensaje}</div>`;
@@ -39,7 +63,8 @@ const cargarPeliculas = async () => {
 const cargarFunciones = async () => {
     try {
         const funciones = await funcionService.listar_funciones();
-        renderizarFunciones(funciones);
+        const funcionesNormalizadas = await normalizarFuncionesConRelaciones(funciones);
+        renderizarFunciones(funcionesNormalizadas);
     } catch (error) {
         console.error('Error al cargar funciones:', error);
         mostrarAlerta('Error al cargar las funciones', 'error');

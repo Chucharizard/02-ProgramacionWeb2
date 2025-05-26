@@ -19,20 +19,20 @@ import { funcionService as funcionServiceJson } from './funcion-service-json.js'
 import { clienteService as clienteServiceJson } from './cliente-service-json.js';
 import { boletoService as boletoServiceJson } from './boleto-service-json.js';
 
-// Imports para SQL Server ⬅️ NUEVO
+// Imports para SQL Server 
 import { peliculaService as peliculaServiceSqlServer } from './pelicula-service-sqlserver.js';
 import { funcionService as funcionServiceSqlServer } from './funcion-service-sqlserver.js';
 import { clienteService as clienteServiceSqlServer } from './cliente-service-sqlserver.js';
 import { boletoService as boletoServiceSqlServer } from './boleto-service-sqlserver.js';
 
-// Selección de servicios basada en la configuración
+
 const getService = (supaService, phpService, jsonService, sqlServerService) => {
     switch (backendType) {
         case 'php':
             return phpService;
         case 'json':
             return jsonService;
-        case 'sqlserver': // ⬅️ NUEVO
+        case 'sqlserver':
             return sqlServerService;
         default:
             return supaService;

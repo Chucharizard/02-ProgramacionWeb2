@@ -1,6 +1,7 @@
 import { boletoService } from '../service/service-selector.js';
 import { funcionService } from '../service/service-selector.js';
 import { clienteService } from '../service/service-selector.js';
+import { peliculaService } from '../service/service-selector.js';
 
 const formulario = document.querySelector("[data-form]");
 const boletoId = document.querySelector("[data-id]");
@@ -11,6 +12,46 @@ const precioInput = document.querySelector("[data-precio]");
 const btnLimpiar = document.querySelector("[data-limpiar]");
 const tablaBoletos = document.querySelector("[data-table]");
 const alertContainer = document.querySelector("[data-alert]");
+
+// Funcion para normalizar 
+const normalizarBoletosConRelaciones = async (boletos) => {
+    const backendType = localStorage.getItem('backendType') || 'supabase';
+    
+    if (backendType === 'supabase') {
+        return boletos;
+    }
+    
+    // Para JSON Server y SQL Server se necesitaa hacer JOINs manuales
+    try {
+        // Obtener todas las funciones, clientes y películas
+        const [funciones, clientes, peliculas] = await Promise.all([
+            funcionService.listar_funciones(),
+            clienteService.listar_clientes(),
+            peliculaService.listar_peliculas()
+        ]);
+        
+        return boletos.map(boleto => { // Normalizar boleto
+ 
+            const funcion = funciones.find(f => f.id === boleto.funcion_id) || {};
+            
+            const cliente = clientes.find(c => c.id === boleto.cliente_id) || {}; // Buscar el cliente relacionado
+            
+            const pelicula = peliculas.find(p => p.id === funcion.pelicula_id) || {}; // Buscar la película relacionada a la función
+            // Con esto retornamos boleto con estructura similar a Supabase
+            return {
+                ...boleto,
+                funciones: {
+                    ...funcion,
+                    peliculas: pelicula
+                },
+                clientes: cliente
+            };
+        });
+    } catch (error) {
+        console.error('Error al normalizar boletos:', error);
+        return boletos; // Aca devolvemos datos originales en caso de error
+    }
+};
 
 const mostrarAlerta = (mensaje, tipo) => {
     alertContainer.innerHTML = `<div class="alert alert--${tipo}">${mensaje}</div>`;
@@ -71,7 +112,8 @@ funcionSelect.addEventListener('change', async () => {
 const cargarBoletos = async () => {
     try {
         const boletos = await boletoService.listar_boletos();
-        renderizarBoletos(boletos);
+        const boletosNormalizados = await normalizarBoletosConRelaciones(boletos);
+        renderizarBoletos(boletosNormalizados);
     } catch (error) {
         console.error('Error al cargar boletos:', error);
         mostrarAlerta('Error al cargar los boletos', 'error');

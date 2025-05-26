@@ -3,15 +3,14 @@ import { peliculaService } from '../service/service-selector.js';
 const supabaseRadio = document.getElementById('supabase');
 const phpRadio = document.getElementById('php');
 const jsonRadio = document.getElementById('json');
-const sqlserverRadio = document.getElementById('sqlserver'); // ⬅️ NUEVO
+const sqlserverRadio = document.getElementById('sqlserver'); 
 const guardarBtn = document.getElementById('guardarConfig');
 const probarBtn = document.getElementById('probarConexion');
-const resetBtn = document.getElementById('resetBtn'); // ⬅️ NUEVO
+const resetBtn = document.getElementById('resetBtn'); 
 const estadoBackend = document.getElementById('estadoBackend');
 const estadoConexion = document.getElementById('estadoConexion');
 const resultadoPrueba = document.getElementById('resultadoPrueba');
 
-// Cargar configuración actual
 const cargarConfiguracion = () => {
     const backendType = localStorage.getItem('backendType') || 'supabase';
     
@@ -22,9 +21,9 @@ const cargarConfiguracion = () => {
             break;
         case 'json':
             jsonRadio.checked = true;
-            estadoBackend.textContent = 'JSON (Memoria)';
+            estadoBackend.textContent = 'JSON ';
             break;
-        case 'sqlserver': // ⬅️ NUEVO
+        case 'sqlserver': 
             sqlserverRadio.checked = true;
             estadoBackend.textContent = 'PHP/SQL Server';
             break;
@@ -34,7 +33,6 @@ const cargarConfiguracion = () => {
     }
 };
 
-// Guardar configuración
 guardarBtn.addEventListener('click', () => {
     let backendType = 'supabase';
     
@@ -42,20 +40,19 @@ guardarBtn.addEventListener('click', () => {
         backendType = 'php';
     } else if (jsonRadio.checked) {
         backendType = 'json';
-    } else if (sqlserverRadio.checked) { // ⬅️ NUEVO
+    } else if (sqlserverRadio.checked) {
         backendType = 'sqlserver';
     }
     
     localStorage.setItem('backendType', backendType);
     
-    // Mantener compatibilidad con código anterior
     localStorage.setItem('usePhp', (backendType === 'php').toString());
     
     const backendName = {
         'supabase': 'Supabase',
         'php': 'PHP/MySQL',
         'json': 'JSON (Memoria)',
-        'sqlserver': 'PHP/SQL Server' // ⬅️ NUEVO
+        'sqlserver': 'PHP/SQL Server' 
     }[backendType];
     
     estadoBackend.textContent = backendName;
@@ -89,7 +86,6 @@ probarBtn.addEventListener('click', async () => {
     }
 });
 
-// Restablecer configuración ⬅️ NUEVO
 resetBtn.addEventListener('click', () => {
     if (confirm('¿Estás seguro de que quieres restablecer la configuración a Supabase?')) {
         localStorage.removeItem('backendType');
@@ -108,5 +104,4 @@ const mostrarAlerta = (mensaje, tipo) => {
     }, 5000);
 };
 
-// Cargar configuración al inicio
 document.addEventListener('DOMContentLoaded', cargarConfiguracion);
