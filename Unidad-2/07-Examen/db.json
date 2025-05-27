@@ -59,19 +59,19 @@
   "clientes": [
     {
       "id": "cli-1",
-      "nombre": "Juan Pérez",
+      "nombre": "Juan Perez",
       "email": "juan.perez@email.com",
       "telefono": "555-0123"
     },
     {
       "id": "cli-2",
-      "nombre": "María García",
+      "nombre": "Maria Garcia",
       "email": "maria.garcia@email.com",
       "telefono": "555-0124"
     },
     {
       "id": "cli-3",
-      "nombre": "Carlos López",
+      "nombre": "Carlos Lopez",
       "email": "carlos.lopez@email.com",
       "telefono": "555-0125"
     }
